@@ -72,8 +72,8 @@ tabLabel_advanced_heritrix = "Heritrix"
 tabLabel_advanced_miscellaneous = "Miscellaneous"
 tabLabel_advanced_general_serviceStatus = "SERVICE STATUS"
 
-serviceEnabledLabel_YES = "OK"  # "✓"
-serviceEnabledLabel_NO = "X"  # "✗"
+serviceEnabledLabel_YES = "OK"
+serviceEnabledLabel_NO = "X"
 
 # Basic Tab Buttons
 buttonLabel_archiveNow = "Archive Now!"
@@ -274,12 +274,12 @@ class WAILGUIFrame_Basic(wx.Panel):
           time.sleep(4)
           self.startHeritrixJob()
           mainAppWindow.advConfig.heritrixPanel.populateListboxWithJobs()
-          
+
           #if sys.platform.startswith('darwin'): #show a notification of success in OS X
           #  Notifier.notify('Archival process successfully initiated.',title="WAIL")
         else:
           print "Java SE 6 needs to be installed. WAIL should invoke the installer here."
-          
+
         wx.CallAfter(self.onLongRunDone)
 
     def onLongRunDone(self):
@@ -481,7 +481,7 @@ class WAILGUIFrame_Advanced(wx.Panel):
                 return
               else:
                 print "Invalid transitional service id specified. Updating status per usual."
-            
+
 
 
             if hasattr(self,'status_heritrix'):
@@ -492,7 +492,7 @@ class WAILGUIFrame_Advanced(wx.Panel):
                 wx.StaticText(self, 100, "STATE",          (col1,    rowHeight*0),      cellSize)
                 self.status_wayback = wx.StaticText(self, 100, tomcatAccessible,       (col1,    rowHeight*1),      cellSize)
                 self.status_heritrix = wx.StaticText(self, 100, heritrixAccessible,                   (col1,    rowHeight*2),      cellSize)
-                
+
 
                 #For eventual icons instead of text
                 #bmp = wx.Bitmap("./build/icons/famYes.png", wx.BITMAP_TYPE_ANY)
@@ -619,11 +619,11 @@ class WAILGUIFrame_Advanced(wx.Panel):
         def manageJobs(self, evt):
             if self.listbox.GetCount() == 0: # Do not show context menu without context
                 return
-        
+
             menu = wx.Menu()
             #menu.Append( 1, "Restart Job" ) #TODO
             #menu.Bind(wx.EVT_MENU, self.restartJob, id=1)
-            menu.Append( 1, menu_forceCrawlFinish ) 
+            menu.Append( 1, menu_forceCrawlFinish )
             menu.Bind(wx.EVT_MENU, self.forceCrawlFinish, id=1)
             menu.Append( 2, menu_destroyJob )
             menu.Bind(wx.EVT_MENU, self.deleteHeritrixJob, id=2)
@@ -649,7 +649,7 @@ class WAILGUIFrame_Advanced(wx.Panel):
             self.populateListboxWithJobs()
 
         def openConfigInTextEditor(self, evt):
-            #TODO, most systems don't know how to open a cxml file. Is there a way to create a system mapping from python?        
+            #TODO, most systems don't know how to open a cxml file. Is there a way to create a system mapping from python?
             # Issue #22 prevents the context of the right-click item from being obtained and used here.
             file = heritrixJobPath + str(self.listbox.GetString(self.listbox.GetSelection())) + "/crawler-beans.cxml"
             if sys.platform.startswith('darwin'):
@@ -667,7 +667,7 @@ class WAILGUIFrame_Advanced(wx.Panel):
             if hasattr(self, 'newCrawlTextCtrlLabel'):
                 print "The UI has already been setup."
                 return
-            
+
             self.statusMsg.Hide()
 
             self.newCrawlTextCtrlLabel = wx.StaticText(self, -1, "Enter one URI per line to crawl", pos=(135, 0))
@@ -925,7 +925,7 @@ class Service():
             if hasattr(e, 'code'): # HTTPError
                 print "Pseudo-Success in accessing " + self.uri
                 return True
-           # if hasattr(e, 
+           # if hasattr(e,
 
             print "Failed to access " + self.__class__.__name__+" service at " + self.uri
             return False
@@ -1015,7 +1015,7 @@ class Heritrix(Service):
         wx.CallAfter(mainAppWindow.advConfig.generalPanel.updateServiceStatuses)
         if cb:
           wx.CallAfter(cb)
-        
+
     def kill(self,button):
         thread.start_new_thread(self.killAsync,())
 
